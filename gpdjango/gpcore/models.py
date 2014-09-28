@@ -1,35 +1,37 @@
+from django.contrib import admin
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
-class gpUser(models.Model):
-    user_name = models.CharField(max_length=25)
-    user_password = models.CharField(max_length=25)
-    user_date_joined = models.DateTimeField('date joined')
-    
-    def __unicode__(self):
-        return self.user_name
-
 class gpAlbum(models.Model):
-    creator = models.ForeignKey(gpUser)
     # TODO Add contributor users
     # TODO Add viewer users
     
-    album_date_created = models.DateTimeField('date created')
-    album_title = models.CharField(max_length=25)
-    album_public = models.BooleanField()
+    album_date_created = models.DateTimeField(auto_now_add=True)
+    album_title = models.CharField(max_length=30)
+    album_public = models.BooleanField(default=False)
 
     def __unicode__(self):  
         return self.album_title
 
 class gpPhoto(models.Model):
 
-    album = models.ForeignKey(gpAlbum)
-    uploader = models.ForeignKey(gpUser)
-
-    title = models.CharField(max_length=25)
-    # TODO Add Imagefield
+    photo_title = models.CharField(max_length=30, null=True)
+    photo_album = models.ForeignKey(gpAlbum, null=True, blank=True)
+    photo_uploader = models.ForeignKey(User, null=True, blank=True)
+    photo_date_created = models.DateTimeField(auto_now_add=True)
+    photo_image = models.FileField(upload_to="photos/")
+	# TODO Add Imagefield
 
     def __unicode__(self):  
-        return self.title
+        return self.photo_title
+
+class gpAdminAlbum(admin.ModelAdmin):
+    search_fields = ["album_title"]
+    list_display = ["album_title"]
+
+class gpAdminPhoto(admin.ModelAdmin):
+    search_fields = ["photo_title"]
+    list_display = ["__unicode__", "photo_title", "photo_album", "photo_uploader", "photo_date_created"]
 

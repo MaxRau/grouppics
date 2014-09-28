@@ -81,3 +81,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Media Directory Information
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'assets')
+MEDIA_URL = 'http://localhost:8000/media/'
