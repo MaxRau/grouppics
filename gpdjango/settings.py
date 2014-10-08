@@ -85,4 +85,4 @@ STATIC_URL = '/static/'
 # Media Directory Information
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 MEDIA_ROOT = os.path.join(SITE_ROOT, 'assets')
-MEDIA_URL = 'http://localhost:8000/media/'
+MEDIA_URL = 'http://localhost:8000/assets/'

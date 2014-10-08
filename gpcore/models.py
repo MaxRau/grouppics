@@ -17,7 +17,7 @@ class gpAlbum(models.Model):
     
     def images(self):
 	lst = [x.image.name for x in self.image_set.all()]
-	lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
+	lst = ["<a href='/assets/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
         return join(lst, ', ')
 
     def __unicode__(self):  
@@ -44,7 +44,7 @@ class gpPhoto(models.Model):
         return "%s x %s" % (self.photo_width, self.photo_height)
 
     def thumbnail(self):
-        return """<a href="/assets/%s"><img border="0" alt="" src="/assets/%s" height="40" /></a>""" % ((self.image.name, self.image.name))
+        return """<img border="0" alt="" src="/assets/%s" height="40" />""" % ((self.image.name))
 
     def __unicode__(self):  
         return self.photo_title
